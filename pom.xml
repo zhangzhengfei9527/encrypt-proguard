@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.sertrend</groupId>
+    <artifactId>encrypt-proguard</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>encrypt-proguard</name>
+    <description>encrypt-proguard</description>
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.7.6</spring-boot.version>
+<!--        <spring-boot.version>2.1.5.RELEASE</spring-boot.version>-->
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+<!--    <build>-->
+<!--        <plugins>-->
+
+<!--            <plugin>-->
+<!--                <groupId>com.github.wvengen</groupId>-->
+<!--                <artifactId>proguard-maven-plugin</artifactId>-->
+<!--                <version>2.6.0</version>-->
+<!--                <executions>-->
+<!--                    &lt;!&ndash; 配置执行阶段为package，即在打包时执行代码混淆 &ndash;&gt;-->
+<!--                    <execution>-->
+<!--                        <phase>package</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>proguard</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; 指定输入Jar文件名 &ndash;&gt;-->
+<!--                    <injar>${project.build.finalName}.jar</injar>-->
+<!--                    &lt;!&ndash; 指定输出Jar文件名，与输入Jar同名，实现覆盖 &ndash;&gt;-->
+<!--                    <outjar>${project.build.finalName}.jar</outjar>-->
+<!--                    &lt;!&ndash; 混淆开关，默认为true &ndash;&gt;-->
+<!--                    <obfuscate>true</obfuscate>-->
+<!--                    &lt;!&ndash; 指向proguard配置文件 &ndash;&gt;-->
+<!--                    <proguardInclude>${project.basedir}/proguard.cfg</proguardInclude>-->
+<!--                    &lt;!&ndash; 添加额外的jar包路径，通常为项目编译所需 &ndash;&gt;-->
+<!--                    <libs>-->
+<!--                        <lib>${java.home}/lib/rt.jar</lib>-->
+<!--                        <lib>${java.home}/lib/jce.jar</lib>-->
+<!--                        <lib>${java.home}/lib/jsse.jar</lib>-->
+<!--                    </libs>-->
+<!--                    &lt;!&ndash; 过滤输入Jar中的文件，例如不处理META-INF目录下的文件 &ndash;&gt;-->
+<!--                    <inLibsFilter>!META-INF/**,!META-INF/versions/9/**.class</inLibsFilter>-->
+<!--                    &lt;!&ndash; 指定输出目录 &ndash;&gt;-->
+<!--                    <outputDirectory>${project.basedir}/target</outputDirectory>-->
+<!--                    &lt;!&ndash; 混淆配置的细节选项，例如指定哪些类不进行混淆，可选配置项 &ndash;&gt;-->
+<!--                    <options>-->
+<!--                        &lt;!&ndash; 具体的混淆配置可在此处或外部配置文件中定义 &ndash;&gt;-->
+<!--                    </options>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+    <build>
+        <plugins>
+            <!--  proguard 代码混淆配置  开始-->
+            <plugin>
+                <groupId>com.github.wvengen</groupId>
+                <artifactId>proguard-maven-plugin</artifactId>
+                <version>2.6.0</version>
+                <executions>
+                    <!-- 以下配置说明执行mvn的package命令时候，会执行proguard-->
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>proguard</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <proguardVersion>7.1.0</proguardVersion>
+                    <!-- 输入Jar的名称，输入混淆前的jar。 -->
+                    <injar>${project.build.finalName}.jar</injar>
+                    <!-- 输出jar名称，输出混淆后的jar -->
+                    <outjar>${project.build.finalName}.jar</outjar>
+                    <!-- 是否混淆 默认是true -->
+                    <obfuscate>true</obfuscate>
+                    <!-- 混淆配置文件proguard.cfg -->
+                    <proguardInclude>${project.basedir}/proguard.cfg</proguardInclude>
+                    <!-- 项目编译所需要的jar -->
+                    <libs>
+                        <lib>${java.home}/lib/rt.jar</lib>
+                        <lib>${java.home}/lib/jce.jar</lib>
+                        <lib>${java.home}/lib/jsse.jar</lib>
+                    </libs>
+                    <!-- 对输入jar进行过滤比如，如下配置就是对META-INFO文件不处理。 -->
+                    <inLibsFilter>!META-INF/**,!META-INF/versions/9/**.class</inLibsFilter>
+                    <!-- 输出路径配置，但是要注意这个路径必须要包括injar标签填写的jar -->
+                    <outputDirectory>${project.basedir}/target</outputDirectory>
+                    <!--配置混淆的一些细节选项，可在proguard.cfg中配置-->
+                    <options>
+                    </options>
+                    <!-- 把jar包放到临时目录以便缩短命令行 -->
+                    <putLibraryJarsInTempDir>true</putLibraryJarsInTempDir>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-base</artifactId>
+                        <version>7.1.0</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.guardsquare</groupId>
+                        <artifactId>proguard-core</artifactId>
+                        <version>7.1.0</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <!--  proguard 代码混淆配置  结束-->
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.1.1.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
