@@ -39,49 +39,6 @@
         </dependencies>
     </dependencyManagement>
 
-<!--    <build>-->
-<!--        <plugins>-->
-
-<!--            <plugin>-->
-<!--                <groupId>com.github.wvengen</groupId>-->
-<!--                <artifactId>proguard-maven-plugin</artifactId>-->
-<!--                <version>2.6.0</version>-->
-<!--                <executions>-->
-<!--                    &lt;!&ndash; 配置执行阶段为package，即在打包时执行代码混淆 &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <phase>package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>proguard</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; 指定输入Jar文件名 &ndash;&gt;-->
-<!--                    <injar>${project.build.finalName}.jar</injar>-->
-<!--                    &lt;!&ndash; 指定输出Jar文件名，与输入Jar同名，实现覆盖 &ndash;&gt;-->
-<!--                    <outjar>${project.build.finalName}.jar</outjar>-->
-<!--                    &lt;!&ndash; 混淆开关，默认为true &ndash;&gt;-->
-<!--                    <obfuscate>true</obfuscate>-->
-<!--                    &lt;!&ndash; 指向proguard配置文件 &ndash;&gt;-->
-<!--                    <proguardInclude>${project.basedir}/proguard.cfg</proguardInclude>-->
-<!--                    &lt;!&ndash; 添加额外的jar包路径，通常为项目编译所需 &ndash;&gt;-->
-<!--                    <libs>-->
-<!--                        <lib>${java.home}/lib/rt.jar</lib>-->
-<!--                        <lib>${java.home}/lib/jce.jar</lib>-->
-<!--                        <lib>${java.home}/lib/jsse.jar</lib>-->
-<!--                    </libs>-->
-<!--                    &lt;!&ndash; 过滤输入Jar中的文件，例如不处理META-INF目录下的文件 &ndash;&gt;-->
-<!--                    <inLibsFilter>!META-INF/**,!META-INF/versions/9/**.class</inLibsFilter>-->
-<!--                    &lt;!&ndash; 指定输出目录 &ndash;&gt;-->
-<!--                    <outputDirectory>${project.basedir}/target</outputDirectory>-->
-<!--                    &lt;!&ndash; 混淆配置的细节选项，例如指定哪些类不进行混淆，可选配置项 &ndash;&gt;-->
-<!--                    <options>-->
-<!--                        &lt;!&ndash; 具体的混淆配置可在此处或外部配置文件中定义 &ndash;&gt;-->
-<!--                    </options>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-<!--    </build>-->
 
     <build>
         <plugins>

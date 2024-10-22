@@ -17,7 +17,6 @@ public class EncryptProguardApplication {
     }
 
     public static void main(String[] args) {
-//        SpringApplication.run(EncryptProguardApplication.class, args);
         new SpringApplicationBuilder(EncryptProguardApplication.class)
                 .beanNameGenerator(new CustomGenerator())
                 .run(args);
